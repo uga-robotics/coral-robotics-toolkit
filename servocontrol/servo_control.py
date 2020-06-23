@@ -2,11 +2,11 @@ from periphery import PWM
 
 
 class Servo:
-    def __init__(self, bank, number=0, min_pulse=1, max_pulse=2, frequency=50):
+    def __init__(self, bank, channel=0, min_pulse=1, max_pulse=2, frequency=50):
         self.min_pulse = min_pulse
         self.max_pulse = max_pulse
         self.mid_pulse = (min_pulse + max_pulse) / 2
-        self.pwm = PWM(bank, number)
+        self.pwm = PWM(bank, channel)
         self.pwm.frequency = frequency
         self.pwm.enable()
 
