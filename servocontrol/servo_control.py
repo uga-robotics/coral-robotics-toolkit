@@ -1,21 +1,33 @@
-from periphery import PWM
+from periphery import GPIO
+import threading
+import time
 
 
 class Servo:
-    def __init__(self, bank, channel=0, min_pulse=1, max_pulse=2, frequency=50):
+    def __init__(self, gpio, min_pulse=1, max_pulse=2, frequency=50):
         self.min_pulse = min_pulse
         self.max_pulse = max_pulse
         self.mid_pulse = (min_pulse + max_pulse) / 2
-        self.pwm = PWM(bank, channel)
-        self.pwm.frequency = frequency
-        self.pwm.enable()
+        self.looping = False
+        self.pin = GPIO(gpio, "out")
+        self.frequency = frequency
+        self.millis = self.mid_pulse
+        self.thread = threading.Thread(target=self.loop, args=())
+        self.thread.start()
 
     def __del__(self):
-        self.pwm.close()
+        self.looping = False
+        self.thread.join()
+
+    def loop(self):
+        while self.looping:
+            self.pin.write(True)
+            time.sleep(self.millis)
+            self.pin.write(False)
+            time.sleep((1000 / self.frequency) - self.millis)
 
     def set_angle(self, angle):
         if 180 >= angle >= 0:
-            millis = ((angle - 90) / 90) * (self.mid_pulse - self.min_pulse) + self.mid_pulse
-            self.pwm.duty_cycle = millis / 50
+            self.millis = ((angle - 90) / 90) * (self.mid_pulse - self.min_pulse) + self.mid_pulse
         else:
             raise ValueError("Angle out of bounds!")

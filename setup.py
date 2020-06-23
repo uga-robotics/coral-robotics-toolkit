@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="coral-robotics-toolkit",
-    version='0.2.0',
+    version='0.2.1',
     packages=find_packages(),
     author="Hunter Halloran (Jyumpp)",
     author_email="hdh20267@uga.edu",
@@ -16,7 +16,7 @@ setup(
     long_description_content_type='text/markdown',
     download_url='not-a-website.com',
     url="not-a-git-repo.com",
-    keywords="servo, bot, robotics, coral, motor, robot",
+    keywords="servo, mendel, robotics, coral, motor, robot",
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
