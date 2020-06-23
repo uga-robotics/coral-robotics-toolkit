@@ -24,7 +24,7 @@ class Servo:
 
     def loop(self):
         while self.looping:
-            self.debug.info(str(self.looping))
+            # self.debug.info(str(self.looping))
             self.pin.write(True)
             time.sleep(self.millis / 1000)
             self.pin.write(False)
