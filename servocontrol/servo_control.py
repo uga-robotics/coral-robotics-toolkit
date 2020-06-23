@@ -5,17 +5,17 @@ from debugmessages import *
 
 
 class Servo:
-    def __init__(self, gpio, min_pulse=1, max_pulse=2, frequency=50):
+    def __init__(self, pin, min_pulse=1, max_pulse=2, frequency=50):
+        self.debug = DebugMessages(self)
         self.min_pulse = min_pulse
         self.max_pulse = max_pulse
         self.mid_pulse = (min_pulse + max_pulse) / 2
         self.looping = True
-        self.pin = GPIO(gpio, "out")
+        self.pin = GPIO(pin, "out")
         self.frequency = frequency
         self.millis = self.mid_pulse
         self.thread = threading.Thread(target=self.loop, args=())
         self.thread.start()
-        self.debug = DebugMessages(self)
 
     def __del__(self):
         self.looping = False
