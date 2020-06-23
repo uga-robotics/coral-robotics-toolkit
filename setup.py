@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="coral-robotics-toolkit",
-    version='0.2.1',
+    version='0.2.2',
     packages=find_packages(),
     author="Hunter Halloran (Jyumpp)",
     author_email="hdh20267@uga.edu",

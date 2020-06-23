@@ -1,6 +1,7 @@
 from periphery import GPIO
 import threading
 import time
+from debugmessages import *
 
 
 class Servo:
@@ -14,6 +15,7 @@ class Servo:
         self.millis = self.mid_pulse
         self.thread = threading.Thread(target=self.loop, args=())
         self.thread.start()
+        self.debug = DebugMessages(self)
 
     def __del__(self):
         self.looping = False
@@ -21,6 +23,7 @@ class Servo:
 
     def loop(self):
         while self.looping:
+            self.debug.info("Looped!")
             self.pin.write(True)
             time.sleep(self.millis)
             self.pin.write(False)
