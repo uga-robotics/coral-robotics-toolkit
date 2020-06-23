@@ -20,16 +20,16 @@ class Servo:
 
     def __del__(self):
         self.looping = False
+        self.debug.info(str(self.looping))
 
     def loop(self):
         while self.looping:
-            if self.old_millis != self.millis:
-                self.debug.info(str(self.looping))
-                self.pin.write(True)
-                time.sleep(self.millis / 1000)
-                self.pin.write(False)
-                time.sleep(((1000 / self.frequency) - self.millis) / 1000)
-                self.old_millis = self.millis
+            self.debug.info(str(self.looping))
+            self.pin.write(True)
+            time.sleep(self.millis / 1000)
+            self.pin.write(False)
+            time.sleep(((1000 / self.frequency) - self.millis) / 1000)
+            self.old_millis = self.millis
 
     def set_angle(self, angle):
         if 180 >= angle >= 0:
