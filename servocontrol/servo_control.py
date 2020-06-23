@@ -25,9 +25,9 @@ class Servo:
         while self.looping:
             self.debug.info("Looped!")
             self.pin.write(True)
-            time.sleep(self.millis)
+            time.sleep(self.millis / 1000)
             self.pin.write(False)
-            time.sleep((1000 / self.frequency) - self.millis)
+            time.sleep(((1000 / self.frequency) - self.millis) / 1000)
 
     def set_angle(self, angle):
         if 180 >= angle >= 0:
