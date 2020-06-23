@@ -14,6 +14,7 @@ class Servo:
         self.pin = GPIO(pin, "out")
         self.frequency = frequency
         self.millis = self.mid_pulse
+        self.old_millis = -1
         self.thread = threading.Thread(target=self.loop, args=())
         self.thread.start()
 
@@ -22,11 +23,13 @@ class Servo:
 
     def loop(self):
         while self.looping:
-            self.debug.info(str(self.looping))
-            self.pin.write(True)
-            time.sleep(self.millis / 1000)
-            self.pin.write(False)
-            time.sleep(((1000 / self.frequency) - self.millis) / 1000)
+            if self.old_millis != self.millis:
+                self.debug.info(str(self.looping))
+                self.pin.write(True)
+                time.sleep(self.millis / 1000)
+                self.pin.write(False)
+                time.sleep(((1000 / self.frequency) - self.millis) / 1000)
+                self.old_millis = self.millis
 
     def set_angle(self, angle):
         if 180 >= angle >= 0:
