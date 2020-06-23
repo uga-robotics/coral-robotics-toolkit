@@ -19,7 +19,6 @@ class Servo:
 
     def __del__(self):
         self.looping = False
-        self.thread.join()
 
     def loop(self):
         while self.looping:
