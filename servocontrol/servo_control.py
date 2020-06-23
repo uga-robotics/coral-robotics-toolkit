@@ -9,7 +9,7 @@ class Servo:
         self.min_pulse = min_pulse
         self.max_pulse = max_pulse
         self.mid_pulse = (min_pulse + max_pulse) / 2
-        self.looping = False
+        self.looping = True
         self.pin = GPIO(gpio, "out")
         self.frequency = frequency
         self.millis = self.mid_pulse
